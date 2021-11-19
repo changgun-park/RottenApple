@@ -1,0 +1,10 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('articles/',views.article_list),
+    path('articles/<int:article_pk>/',views.article_detail),
+    path('article_comments/',views.article_comment_list),
+    path('article_comments/<int:article_comment_pk>/',views.article_comment_detail),
+    path('articles/<int:artcle_pk>/comments/',views.article_comment_create),
+]
