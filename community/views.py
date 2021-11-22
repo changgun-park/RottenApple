@@ -80,19 +80,19 @@ def article_comment_create(request,article_pk):
 
 @api_view(['POST'])
 def article_likes(request,article_pk):
-    if request.user.is_authenticated:
-        article = get_object_or_404(Article,pk=article_pk)
-        if article.like_users.filter(pk=request.user.pk).exists():
-            article.like_users.remove(request.user)
-            liked = False
-        else:
-            article.like_users.add(request.user)
-            liked = True
-        context = {
-            'liked':liked,
-            'count':article.like_users.count(),
-        }
-        return Response(context)
-    return Response('로그인 안됨')
+    # if request.user.is_authenticated:
+    article = get_object_or_404(Article,pk=article_pk)
+    if article.like_users.filter(pk=request.user.pk).exists():
+        article.like_users.remove(request.user)
+        liked = False
+    else:
+        article.like_users.add(request.user)
+        liked = True
+    context = {
+        'liked':liked,
+        'count':article.like_users.count(),
+    }
+    return Response(context)
+    # return Response('로그인 안됨')
         
 
