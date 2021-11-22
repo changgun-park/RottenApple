@@ -10,6 +10,7 @@ from rest_framework.permissions import AllowAny,IsAuthenticated
 # Create your views here.
 
 @api_view(['GET','POST'])
+@permission_classes([AllowAny])
 def article_list(request):
     if request.method == 'GET':
         articles = get_list_or_404(Article)
@@ -23,6 +24,7 @@ def article_list(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['GET','DELETE','PUT'])
+@permission_classes([AllowAny])
 def article_detail(request,article_pk):
     article = get_object_or_404(Article,pk=article_pk)
 
@@ -81,6 +83,7 @@ def article_comment_create(request,article_pk):
 
 
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def article_likes(request,article_pk):
     # if request.user.is_authenticated:
     article = get_object_or_404(Article,pk=article_pk)
