@@ -53,4 +53,4 @@ class User(AbstractUser):
     followings = models.ManyToManyField('self', symmetrical=False, related_name='followers')
     is_expert = models.BooleanField(default=False)
     # preferences = models.IntegerField(Choices=GENRE_CHOICE, default=None)
-    genres = models.ManyToManyField(Genre)
+    genres = models.ManyToManyField(Genre, blank=True)

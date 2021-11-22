@@ -15,8 +15,6 @@ def signup(request):
     if password != password_confirmation:
         return Response({'error': '비밀번호가 일치하지 않습니다'})
     
-    genres = request.data.get('selected')
-
     serializer = UserSerializer(data=request.data)
     
     if serializer.is_valid(raise_exception=True):
