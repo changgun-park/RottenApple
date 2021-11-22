@@ -26,8 +26,7 @@
         @keyup.enter="signup"
       >
     </div>
-      
-        <multiselect
+        <!-- <multiselect
           v-model="credentials.selected"
           :options="options"
           :multiple="true"
@@ -39,18 +38,41 @@
           :max="3"
           placeholder="">
             <span slot="maxElements">최대 3개만 선택 할 수 있습니다.</span>
-        </multiselect>
+        </multiselect> -->
+    <v-container fluid>
+      <v-row align="center">
+        <v-col cols="6">
+          <v-subheader>
+            선호 장르 선택
+          </v-subheader>
+        </v-col>
+  
+        <v-col cols="6">
+          <v-select
+            v-model="credentials.genres"
+            :items="options"
+            item-text="name"
+            item-value="id"
+            label="Select"
+            return-id
+            single-line
+            multiple
+          ></v-select>
+        </v-col>
+      </v-row>
+    </v-container>
     <button @click="signup">회원가입</button>
+    
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-import Multiselect from 'vue-multiselect'
+// import Multiselect from 'vue-multiselect'
 
 export default {
   components: {
-    Multiselect,
+    // Multiselect,
   },
   name: 'Signup',
   data: function () {
@@ -59,9 +81,8 @@ export default {
         username: null,
         password: null,
         passwordConfirmation: null,
-        selected: []
+        genres: []
       },
-      alert: 'maxed out',
       options: [
         { id: 12, name: '모험',  },
         { id: 14, name: '판타지',  },
@@ -82,7 +103,7 @@ export default {
         { id: 10751, name: '가족'},
         { id: 10752, name: '전쟁'},
         { id: 10770, name: 'TV영화'},
-      ]
+      ],
     }
   },
   methods: {
