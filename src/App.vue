@@ -59,18 +59,24 @@
           </template>
   
           <v-list>
-            <v-list-item :to="{ name: 'Login' }">
-              <v-list-item-title>Login</v-list-item-title>
-            </v-list-item>
-            <v-list-item :to="{ name: 'Signup' }">
-              <v-list-item-title>Signup</v-list-item-title>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-title>Profile</v-list-item-title>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-title>Logout</v-list-item-title>
-            </v-list-item>
+            <span v-if="isLogin">
+              <v-list-item :to="{ name: 'Profile' }">
+                <v-list-item-title>Profile</v-list-item-title>
+              </v-list-item>
+              <v-list-item @click.native="logout" to="#">
+                <v-list-item-title>Logout</v-list-item-title>
+              </v-list-item>
+            </span>
+            <span v-else>
+              <v-list-item :to="{ name: 'Login' }">
+                <v-list-item-title>Login</v-list-item-title>
+              </v-list-item>
+              <v-list-item :to="{ name: 'Signup' }">
+                <v-list-item-title>Signup</v-list-item-title>
+              </v-list-item >
+            </span>
+            
+            
           </v-list>
         </v-menu>
       </v-app-bar>
@@ -86,17 +92,17 @@
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
 
   export default {
     components: { 
-      // HelloWorld 
+       
     },
     props: {
       source: String
     },
     data: function () {
       return {
+        isLogin: false,
         drawer: null,
         items: [
           { title: 'Dashboard', icon: 'mdi-view-dashboard' },
@@ -104,6 +110,20 @@
           { title: 'About', icon: 'mdi-help-box' },
         ]
       } 
-    }  
+    },
+    methods: {
+      logout: function () {
+        this.isLogin = false
+        localStorage.removeItem('jwt')
+        this.$router.push({ name: 'Login' })
+      }
+    },
+    created: function () {
+      const token = localStorage.getItem('jwt')
+
+      if (token) {
+        this.isLogin = true
+      }
+    }
   }
 </script>
