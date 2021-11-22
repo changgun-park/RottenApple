@@ -23,10 +23,20 @@ export default {
       articles:[],
     }
   },
+  // methods: {
+  //   setToken: function() {
+  //     const token = localStorage.getItem('jwt')
+  //     const config = {
+  //       Authorization: `JWT ${token}`
+  //     }
+  //     return config
+  //   }
+  // },
   created:function(){
     axios({
       method:'get',
-      url:'http://127.0.0.1:8000/articles/'
+      url:'http://127.0.0.1:8000/articles/',
+      // headers: this.setToken()
       
     })
       .then(res =>{
