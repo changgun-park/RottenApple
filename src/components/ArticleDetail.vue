@@ -1,9 +1,9 @@
 <template>
   <div>
-    <p>{{article.id}}</p>
-    <p>{{article.title}}</p>
-    <p>{{article.content}}</p>
-    <p>{{ article.like_users.length }}</p>
+    <p>id : {{article.id}}</p>
+    <h1>{{article.title}}</h1>
+    <p> content : {{article.content}}</p>
+    <p>like count : {{ article.like_users.length }}</p>
     <button @click="getlike">like</button>
     
   </div>
@@ -22,7 +22,7 @@ export default {
     getlike:function(){
       axios({
         method:'post',
-        url:`http://127.0.0.1:8000/articles/${this.article.id}/likes/`
+        url:`http://127.0.0.1:8000/articles/${this.$route.params.articleNum}/likes/`
       })
         .then(res=>{
         console.log(res)
