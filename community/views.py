@@ -1,9 +1,11 @@
+from django.http.response import JsonResponse
 from django.shortcuts import get_list_or_404, get_object_or_404, redirect, render
 from .models import Article,CommunityComment
 from .serializers import ArticleListSerializer,CommunityCommentSerializer,ArticleSerializer
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny,IsAuthenticated
 
 # Create your views here.
 
@@ -94,5 +96,6 @@ def article_likes(request,article_pk):
     }
     return Response(context)
     # return Response('로그인 안됨')
+    
         
 
