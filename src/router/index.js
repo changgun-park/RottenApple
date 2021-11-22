@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Signup from '@/views/accounts/Signup'
 import Login from '@/views/accounts/Login'
+import Profile from '@/views/accounts/Profile'
 import Community from '@/views/community/Community'
 import Article from '@/views/community/Article'
 
@@ -19,6 +20,11 @@ const routes = [
     name: 'Login',
     component: Login,
   },
+  {
+    path: '/accounts/profile',
+    name: 'Profile',
+    component: Profile,
+  },  
   {
     path: '/community/community',
     name: 'Community',
