@@ -15,7 +15,7 @@ export default {
   name:'ArticleDetail',
   data:function(){
     return{
-      article:[]
+      article:null,
     }
   },
   methods:{
