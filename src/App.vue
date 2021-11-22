@@ -38,7 +38,7 @@
         
         <v-btn text>Home</v-btn>
         <v-btn text>Reviews</v-btn>
-        <v-btn text>Community</v-btn>
+        <v-btn :to="{ name: 'Community' }" text>Community</v-btn>
         
         <v-spacer></v-spacer>
   
