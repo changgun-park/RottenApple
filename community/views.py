@@ -1,4 +1,4 @@
-from django.shortcuts import get_list_or_404, get_object_or_404, render
+from django.shortcuts import get_list_or_404, get_object_or_404, redirect, render
 from .models import Article,CommunityComment
 from .serializers import ArticleListSerializer,CommunityCommentSerializer,ArticleSerializer
 from rest_framework.response import Response
@@ -25,7 +25,7 @@ def article_detail(request,article_pk):
     article = get_object_or_404(Article,pk=article_pk)
 
     if request.method == 'GET':
-        serializer = ArticleSerializer(Article,pk=article_pk)
+        serializer = ArticleSerializer(article)
         return Response(serializer.data)
     
     elif request.method == 'DELETE':
@@ -35,7 +35,7 @@ def article_detail(request,article_pk):
         }
         return Response(data,status=status.HTTP_204_NO_CONTENT)
 
-    elif request.mehood == 'PUT':
+    elif request.method == 'PUT':
         serializer = ArticleSerializer(article,data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
@@ -50,7 +50,7 @@ def article_comment_list(request):
 
 @api_view(['GET','DELETE','PUT'])
 def article_comment_detail(request,article_comment_pk):
-    comment = get_object_or_404(CommunityComment,article_comment_pk)
+    comment = get_object_or_404(CommunityComment,pk=article_comment_pk)
 
     if request.method == 'GET':
         serializer = CommunityCommentSerializer(comment)
@@ -78,5 +78,21 @@ def article_comment_create(request,article_pk):
         return Response(serializer.data,status=status.HTTP_201_CREATED)
 
 
-
+@api_view(['POST'])
+def article_likes(request,article_pk):
+    # if request.user.is_authenticated:
+    article = get_object_or_404(Article,pk=article_pk)
+    if article.like_users.filter(pk=request.user.pk).exists():
+        article.like_users.remove(request.user)
+        liked = False
+    else:
+        article.like_users.add(request.user)
+        liked = True
+    context = {
+        'liked':liked,
+        'count':article.like_users.count(),
+    }
+    return Response(context)
+    # return Response('로그인 안됨')
+        
 
