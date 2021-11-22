@@ -19,10 +19,18 @@ export default {
     }
   },
   methods:{
+    setToken:function(){
+      const token = localStorage.getItem('jwt')
+      const config = {
+        Authorization: `JWT ${token}`
+      }
+      return config
+    },
     getlike:function(){
       axios({
         method:'post',
-        url:`http://127.0.0.1:8000/articles/${this.$route.params.articleNum}/likes/`
+        url:`http://127.0.0.1:8000/articles/${this.$route.params.articleNum}/likes/`,
+        headers:this.setToken()
       })
         .then(res=>{
         console.log(res)
