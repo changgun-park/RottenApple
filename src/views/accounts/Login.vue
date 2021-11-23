@@ -42,9 +42,9 @@ export default {
         data: this.credentials,
       })
         .then(res => {
-          console.log(res)
+          // vuex에 로그인 상태 반영(isLogin)
+          this.$store.dispatch('login', this.credentials.username)
           localStorage.setItem('jwt', res.data.token)
-          this.$emit('login')
           this.$router.push({ name: 'Community' })
         })
         .catch(err => {

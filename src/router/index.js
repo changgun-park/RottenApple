@@ -21,7 +21,7 @@ const routes = [
     component: Login,
   },
   {
-    path: '/accounts/profile',
+    path: '/accounts/profile/:username/',
     name: 'Profile',
     component: Profile,
   },  

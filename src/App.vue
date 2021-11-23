@@ -48,19 +48,18 @@
         >
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              Text
+              text
               v-bind="attrs"
               v-on="on"
-              color="indigo"
             >
-              <v-icon>mdi-account</v-icon>Anonymous
+              <v-icon>mdi-account</v-icon>{{ loginUser }}
               <v-icon>mdi-dots-vertical</v-icon>
             </v-btn>
           </template>
   
           <v-list>
             <span v-if="isLogin">
-              <v-list-item :to="{ name: 'Profile' }">
+              <v-list-item :to="{ name: 'Profile', params: { username: loginUser }}">
                 <v-list-item-title>Profile</v-list-item-title>
               </v-list-item>
               <v-list-item @click.native="logout" to="#">
@@ -92,6 +91,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 
   export default {
     components: { 
@@ -102,7 +102,7 @@
     },
     data: function () {
       return {
-        isLogin: false,
+        username: null,
         drawer: null,
         items: [
           { title: 'Dashboard', icon: 'mdi-view-dashboard' },
@@ -113,17 +113,16 @@
     },
     methods: {
       logout: function () {
-        this.isLogin = false
         localStorage.removeItem('jwt')
+        this.$store.dispatch('logout')
         this.$router.push({ name: 'Login' })
       }
     },
-    created: function () {
-      const token = localStorage.getItem('jwt')
-
-      if (token) {
-        this.isLogin = true
-      }
-    }
+    computed: {
+      ...mapState([
+        'isLogin',
+        'loginUser'
+      ])
+    },
   }
 </script>
