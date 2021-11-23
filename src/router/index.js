@@ -7,6 +7,7 @@ import Community from '@/views/community/Community'
 import Article from '@/views/community/Article'
 import ArticleCreate from '@/views/community/ArticleCreate'
 import ArticleUpdate from '@/views/community/ArticleUpdate'
+import ReviewsIndex from '@/views/reviews/ReviewIndex'
 
 
 Vue.use(VueRouter)
@@ -50,6 +51,11 @@ const routes = [
     props:true,
     
   },
+  {
+    path: '/reviews/index',
+    name: 'ReviewsIndex',
+    component: ReviewsIndex
+  }
 ]
 
 const router = new VueRouter({
