@@ -7,6 +7,8 @@
       :article="article"
     >
     </community-list-item>
+    <br>
+    <button @click="moveCreate">게시글 생성하기</button>
 
   </div>
 </template>
@@ -23,14 +25,28 @@ export default {
       articles:[],
     }
   },
+  methods:{
+    setToken:function(){
+      const token = localStorage.getItem('jwt')
+      const config = {
+        Authorization: `JWT ${token}`
+      }
+      return config
+    },
+
+    moveCreate:function(){
+      this.$router.push({ name: 'ArticleCreate' })
+    }
+  },
   created:function(){
+    
     axios({
       method:'get',
-      url:'http://127.0.0.1:8000/articles/'
+      url:'http://127.0.0.1:8000/articles/',
+      // headers: this.setToken()
       
     })
       .then(res =>{
-        console.log(res)
         this.articles = res.data
       })
       .catch(err =>{
