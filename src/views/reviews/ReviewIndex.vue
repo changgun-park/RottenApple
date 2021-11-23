@@ -12,10 +12,12 @@
           hide-details
         ></v-text-field>
       </v-card-title>
+      <!-- @click:row="handleClick" 각 열 클릭시 handleClick 메서드 호출 -->
       <v-data-table
         :headers="headers"
         :items="reviews"
         :search="search"
+        @click:row="handleClick"
       ></v-data-table>
     </v-card>
   </v-container>
@@ -40,15 +42,20 @@ import axios from 'axios'
       }
     },
     methods: {
-      setToken:function(){
+      setToken:function (){
         const token = localStorage.getItem('jwt')
         const config = {
         Authorization: `JWT ${token}`
         }
       return config
+      },
+      handleClick: function (value) {
+        // click한 row의 value를 출력해봄.
+        // 이를 기반으로 detail 페이지로 넘어갈 수 있음.
+        console.log(value)
+      }
     },
-    },
-    created: function () {
+      created: function () {
       axios({
         method: 'get',
         url: 'http://127.0.0.1:8000/reviews/list/',
