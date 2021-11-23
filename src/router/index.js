@@ -2,6 +2,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Signup from '@/views/accounts/Signup'
 import Login from '@/views/accounts/Login'
+import Profile from '@/views/accounts/Profile'
+import Community from '@/views/community/Community'
+import Article from '@/views/community/Article'
+import ArticleCreate from '@/views/community/ArticleCreate'
+import ArticleUpdate from '@/views/community/ArticleUpdate'
 
 
 Vue.use(VueRouter)
@@ -16,6 +21,34 @@ const routes = [
     path: '/accounts/login',
     name: 'Login',
     component: Login,
+  },
+  {
+    path: '/accounts/profile',
+    name: 'Profile',
+    component: Profile,
+  },  
+  {
+    path: '/community/community',
+    name: 'Community',
+    component: Community,
+  },
+  {
+    path: '/community/article/:articleNum',
+    name: 'Article',
+    component: Article,
+    
+  },
+  {
+    path:'/community/articlecreate',
+    name:'ArticleCreate',
+    component:ArticleCreate,
+  },
+  {
+    path: '/community/articleupdate/:articleNum',
+    name: 'ArticleUpdate',
+    component: ArticleUpdate,
+    props:true,
+    
   },
 ]
 

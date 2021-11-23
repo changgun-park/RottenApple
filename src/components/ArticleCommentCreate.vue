@@ -1,0 +1,61 @@
+<template>
+  <div>
+    <v-form v-on:submit.prevent="">
+      <v-text-field
+        label="제목"
+        outlined
+        v-model="content"
+      ></v-text-field>
+      <button @click="createComment">댓글 생성하기</button>
+    </v-form>
+  </div>
+</template>
+
+<script>
+import axios from 'axios'
+export default {
+  name:'ArticleCommentCreate',
+  props:{
+    articleId:{
+      type:[Number,String]
+    }
+  },
+  data:function(){
+    return{
+      content:null,
+    }
+  },
+  methods:{
+    setToken:function(){
+      const token = localStorage.getItem('jwt')
+      const config = {
+        Authorization: `JWT ${token}`
+      }
+      return config
+    },
+    createComment:function(){
+      const createItem = {
+        content:this.content
+      }
+      axios({
+        method:'post',
+        url:`http://127.0.0.1:8000/articles/${this.articleId}/comments/`,
+        data:createItem,
+        headers:this.setToken(),
+      })
+        .then(res=>{
+          console.log(res)
+          this.$emit('create-comment')
+          this.content=null
+        })
+        .catch(err=>{
+          console.log(err)
+        })
+    }
+  },
+}
+</script>
+
+<style>
+
+</style>

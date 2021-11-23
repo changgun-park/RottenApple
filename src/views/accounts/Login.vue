@@ -17,11 +17,12 @@
         v-model="credentials.password"
       >
     </div>
-    <button>로그인</button>
+    <button @click="login">로그인</button>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
   name: 'Login',
@@ -33,5 +34,23 @@ export default {
       }
     }
   },
+  methods: {
+    login: function () {
+      axios({
+        method: 'post',
+        url: 'http://127.0.0.1:8000/accounts/api-token-auth/',
+        data: this.credentials,
+      })
+        .then(res => {
+          console.log(res)
+          localStorage.setItem('jwt', res.data.token)
+          this.$emit('login')
+          this.$router.push({ name: 'Community' })
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  }
 }
 </script>
