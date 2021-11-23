@@ -5,6 +5,8 @@ import Login from '@/views/accounts/Login'
 import Profile from '@/views/accounts/Profile'
 import Community from '@/views/community/Community'
 import Article from '@/views/community/Article'
+import ArticleCreate from '@/views/community/ArticleCreate'
+import ArticleUpdate from '@/views/community/ArticleUpdate'
 
 
 Vue.use(VueRouter)
@@ -34,7 +36,19 @@ const routes = [
     path: '/community/article/:articleNum',
     name: 'Article',
     component: Article,
-    // props:true
+    
+  },
+  {
+    path:'/community/articlecreate',
+    name:'ArticleCreate',
+    component:ArticleCreate,
+  },
+  {
+    path: '/community/articleupdate/:articleNum',
+    name: 'ArticleUpdate',
+    component: ArticleUpdate,
+    props:true,
+    
   },
 ]
 

@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <button @click="detail">{{ article.title }}</button>
   </div>
 </template>
