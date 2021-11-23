@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'accounts',
     'movies',
     'community',
+    'reviews',
     # installed apps
     'django_extensions',
     'rest_framework',
