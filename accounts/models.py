@@ -54,3 +54,7 @@ class User(AbstractUser):
     is_expert = models.BooleanField(default=False)
     # preferences = models.IntegerField(Choices=GENRE_CHOICE, default=None)
     genres = models.ManyToManyField(Genre, blank=True)
+
+    def __str__(self):
+        return self.username
+    
