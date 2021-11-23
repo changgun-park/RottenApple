@@ -53,7 +53,7 @@ const routes = [
   },
   {
     path: '/reviews/index',
-    name: 'ReviewsIndex',
+    name: 'ReviewIndex',
     component: ReviewsIndex
   }
 ]
