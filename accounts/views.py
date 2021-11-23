@@ -1,8 +1,11 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from .serializers import UserSerializer
+from .serializers import UserSerializer, UserDetailSerializer
 from rest_framework import status
 from rest_framework.permissions import AllowAny
+from django.contrib.auth import get_user_model
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -24,4 +27,31 @@ def signup(request):
         # DB 반영
         user.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+@api_view(['GET'])
+def profile(request, username):
+    person = get_object_or_404(get_user_model(), username=username)
+
+    serializer = UserDetailSerializer(person)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def follow(request, username):
+    if request.user.is_authenticated:
+        me = request.user
+        you = get_object_or_404(get_user_model(), username=username)
+        if me != you:
+            if you.followers.filter(pk=me.pk).exists():
+                you.followers.remove(me)
+                isFollowed = False
+            else:
+                you.followers.add(me)
+                isFollowed = True
+            context = {
+                'isFollowed': isFollowed,
+                'followers_count': you.followers.count(),
+                'followings_count': you.followings.count(),
+            }
+            return JsonResponse(context)
 
