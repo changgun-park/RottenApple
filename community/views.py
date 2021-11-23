@@ -3,7 +3,7 @@ from django.shortcuts import get_list_or_404, get_object_or_404, redirect, rende
 from .models import Article,CommunityComment
 from .serializers import ArticleListSerializer,CommunityCommentSerializer,ArticleSerializer
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import serializers, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny,IsAuthenticated
 
@@ -13,14 +13,16 @@ from rest_framework.permissions import AllowAny,IsAuthenticated
 @permission_classes([AllowAny])
 def article_list(request):
     if request.method == 'GET':
+        
         articles = get_list_or_404(Article)
         serializer = ArticleListSerializer(articles,many=True)
         return Response(serializer.data)
 
     elif request.method=='POST':
         serializer = ArticleListSerializer(data=request.data)
+        
         if serializer.is_valid(raise_exception=True):
-            serializer.save()
+            serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['GET','DELETE','PUT'])
@@ -30,6 +32,7 @@ def article_detail(request,article_pk):
 
     if request.method == 'GET':
         serializer = ArticleSerializer(article)
+
         return Response(serializer.data)
     
     elif request.method == 'DELETE':
@@ -42,25 +45,28 @@ def article_detail(request,article_pk):
     elif request.method == 'PUT':
         serializer = ArticleSerializer(article,data=request.data)
         if serializer.is_valid(raise_exception=True):
-            serializer.save()
+            serializer.save(user=request.user)
             return Response(serializer.data)
 
-@api_view(['GET'])
-def article_comment_list(request):
-    comments = get_list_or_404(CommunityComment)
-    serializer = CommunityCommentSerializer(comments,many=True)
-    return Response(serializer.data)
+# @api_view(['GET'])
+# @permission_classes([AllowAny])
+# def article_comment_list(request,article_pk):
+#     # comments = get_list_or_404(CommunityComment)
+#     article = get_object_or_404(Article,pk=article_pk)
+#     serializer = ArticleSerializer(article)
+#     return Response(serializer.data)
 
 
-@api_view(['GET','DELETE','PUT'])
+@api_view(['DELETE','PUT'])
+# @permission_classes([AllowAny])
 def article_comment_detail(request,article_comment_pk):
     comment = get_object_or_404(CommunityComment,pk=article_comment_pk)
 
-    if request.method == 'GET':
-        serializer = CommunityCommentSerializer(comment)
-        return Response(serializer.data)
+    # if request.method == 'GET':
+    #     serializer = CommunityCommentSerializer(comment)
+    #     return Response(serializer.data)
     
-    elif request.method == 'DELETE':
+    if request.method == 'DELETE':
         comment.delete()
         data = {
             'message': f'댓글 {article_comment_pk}번이 삭제되었습니다.',
@@ -78,13 +84,14 @@ def article_comment_create(request,article_pk):
     article = get_object_or_404(Article,pk=article_pk)
     serializer = CommunityCommentSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
-        serializer.save(article=article)
+        serializer.save(article=article,user=request.user)
         return Response(serializer.data,status=status.HTTP_201_CREATED)
 
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def article_likes(request,article_pk):
+    print(request.user)
     # if request.user.is_authenticated:
     article = get_object_or_404(Article,pk=article_pk)
     if article.like_users.filter(pk=request.user.pk).exists():
