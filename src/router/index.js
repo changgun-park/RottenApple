@@ -8,6 +8,7 @@ import Article from '@/views/community/Article'
 import ArticleCreate from '@/views/community/ArticleCreate'
 import ArticleUpdate from '@/views/community/ArticleUpdate'
 import Home from '@/views/Home'
+import ReviewsIndex from '@/views/reviews/ReviewIndex'
 
 
 Vue.use(VueRouter)
@@ -55,6 +56,11 @@ const routes = [
     path:'/',
     name:'Home',
     component:Home
+  },
+  {
+    path: '/reviews/index',
+    name: 'ReviewIndex',
+    component: ReviewsIndex
   }
 ]
 
