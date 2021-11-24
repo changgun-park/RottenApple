@@ -4,6 +4,7 @@
       <v-card-title>
         리뷰 목록
         <v-spacer></v-spacer>
+        
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
@@ -11,6 +12,7 @@
           single-line
           hide-details
         ></v-text-field>
+        <v-btn class="ml-5" :to="{ name: 'ReviewCreate' }">글쓰기</v-btn>
       </v-card-title>
       <!-- @click:row="handleClick" 각 열 클릭시 handleClick 메서드 호출 -->
       <v-data-table
@@ -19,6 +21,7 @@
         :search="search"
         @click:row="handleClick"
       ></v-data-table>
+      
     </v-card>
   </v-container>
 </template>

@@ -8,6 +8,7 @@ import Article from '@/views/community/Article'
 import ArticleCreate from '@/views/community/ArticleCreate'
 import ArticleUpdate from '@/views/community/ArticleUpdate'
 import ReviewsIndex from '@/views/reviews/ReviewIndex'
+import ReviewCreate from '@/views/reviews/ReviewCreate'
 
 
 Vue.use(VueRouter)
@@ -55,7 +56,12 @@ const routes = [
     path: '/reviews/index',
     name: 'ReviewIndex',
     component: ReviewsIndex
-  }
+  },
+  {
+    path: '/reviews/create',
+    name: 'ReviewCreate',
+    component: ReviewsCreate
+  }  
 ]
 
 const router = new VueRouter({
