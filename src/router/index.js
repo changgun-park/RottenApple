@@ -7,6 +7,7 @@ import Community from '@/views/community/Community'
 import Article from '@/views/community/Article'
 import ArticleCreate from '@/views/community/ArticleCreate'
 import ArticleUpdate from '@/views/community/ArticleUpdate'
+import Home from '@/views/Home'
 
 
 Vue.use(VueRouter)
@@ -50,6 +51,11 @@ const routes = [
     props:true,
     
   },
+  {
+    path:'/',
+    name:'Home',
+    component:Home
+  }
 ]
 
 const router = new VueRouter({

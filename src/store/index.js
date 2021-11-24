@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
@@ -11,6 +12,7 @@ export default new Vuex.Store({
   state: {
     isLogin: false,
     loginUser: null,
+    movieCards:[],
   },
   mutations: {
     LOGIN: function(state, username) {
@@ -20,6 +22,9 @@ export default new Vuex.Store({
     LOGOUT: function(state) {
       state.isLogin = false,
       state.loginUser = false
+    },
+    LOAD_MOVIE_CARDS:function(state,data){
+      state.movieCards = data
     }
   },
   actions: {
@@ -28,6 +33,20 @@ export default new Vuex.Store({
     },
     logout: function(context) {
       context.commit('LOGOUT')
+    },
+    LoadMovieCards:function({commit}) {
+      axios({
+        method:'get',
+        url:'http://127.0.0.1:8000/movies/',
+      })
+        .then(res=>{
+          // console.log(res)
+          commit('LOAD_MOVIE_CARDS',res.data)
+          
+        })
+        .catch(err=>{
+          console.log(err)
+        })
     }
   },
   modules: {
