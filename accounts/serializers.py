@@ -2,6 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from movies.models import Movie
 from community.models import Article
+from reviews.serializers import ReviewListSerializer
 
 
 
@@ -33,10 +34,11 @@ class UserDetailSerializer(serializers.ModelSerializer):
     followers = serializers.StringRelatedField(many=True)
     like_movies = MovieSerializer(read_only=True, many=True)
     post_articles = ArticleSerializer(read_only=True, many=True)
+    post_reviews = ReviewListSerializer(read_only=True, many=True)
 
     class Meta:
         model = get_user_model()
-        fields = ('username', 'genres', 'is_expert', 'followings', 'like_movies', 'post_articles', 'followers')
+        fields = ('username', 'genres', 'is_expert', 'followings', 'like_movies', 'post_articles', 'followers', 'post_reviews')
 
 
 class UserGenreSerializer(serializers.ModelSerializer):
