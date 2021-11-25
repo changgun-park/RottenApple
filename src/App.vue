@@ -124,5 +124,8 @@ import { mapState } from 'vuex'
         'loginUser'
       ])
     },
+    created:function(){
+      this.$router.push({ name:'Home'})
+    }
   }
 </script>
