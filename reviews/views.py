@@ -22,9 +22,19 @@ def reviews_list(request):
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-@api_view(['POST'])
-def review_create(request):
-    pass
+@api_view(['GET', 'PUT', 'DELETE'])
+def review_update_delete(request, review_pk):
+    review = get_object_or_404(Review, pk=review_pk)
+
+    if request.method == 'GET':
+        serializer = ReviewCreateSerializer(review)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = ReviewCreateSerializer(review, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
