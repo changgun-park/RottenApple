@@ -16,6 +16,7 @@ export default new Vuex.Store({
     movieCards:[],
     genreCards:[],
     averageCards:[],
+    openLogin: false
   },
   mutations: {
     LOGIN: function(state, username) {
@@ -46,6 +47,9 @@ export default new Vuex.Store({
       state.averageCards = state.movieCards.sort(function(a,b) {
         return b.vote_average - a.vote_average
       })
+    },
+    OPENLOGIN: function(state) {
+      state.openLogin = true
     }
   },
   actions: {
@@ -88,6 +92,9 @@ export default new Vuex.Store({
     LoadVoteAverageCards:function({commit}) {
       commit('LOAD_VOTE_AVERAGE_CARDS')
     },
+    openlogin:function(context) {
+      context.commit('OPENLOGIN')
+    }
   },
   modules: {
   }
