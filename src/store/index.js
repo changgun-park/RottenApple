@@ -14,6 +14,8 @@ export default new Vuex.Store({
     isLogin: false,
     loginUser: 'Anonymous',
     movieCards:[],
+    genreCards:[],
+    averageCards:[],
   },
   mutations: {
     LOGIN: function(state, username) {
@@ -28,13 +30,32 @@ export default new Vuex.Store({
     LOAD_MOVIE_CARDS:function(state,data){
       state.movieCards = data
     },
+    LOAD_GENRE_CARDS:function(state,data){
+
+      state.genreCards = state.movieCards.filter(card =>{
+        for (const dd of data) {
+          if (card.genres.includes(dd)){
+            return true
+          }
+        }
+        return false
+      })
+      
+
+    },
+    LOAD_VOTE_AVERAGE_CARDS:function(state) {
+      
+      state.averageCards = state.movieCards.sort(function(a,b) {
+        return b.vote_average - a.vote_average
+      })
+    }
   },
   actions: {
 
  
 
     login: function(context, username) {
-      console.log(context)
+      
       context.commit('LOGIN', username)
     },
     logout: function(context) {
@@ -46,7 +67,7 @@ export default new Vuex.Store({
         url:'http://127.0.0.1:8000/movies/',
       })
         .then(res=>{
-          // console.log(res)
+        
           commit('LOAD_MOVIE_CARDS',res.data)
           
         })
@@ -54,19 +75,23 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    LoadgenreCards:function(context) {
+    LoadGenreCards:function({commit}) {
       axios({
         method:'get',
         url:`http://127.0.0.1:8000/accounts/genres/${this.state.loginUser}/`,
         
       })
       .then(res=>{
-        console.log(context)
-        console.log(res)
+        
+        
+        commit('LOAD_GENRE_CARDS',res.data.genres)
       })
       .catch(err=>{
         console.log(err)
       })
+    },
+    LoadVoteAverageCards:function({commit}) {
+      commit('LOAD_VOTE_AVERAGE_CARDS')
     }
   },
   modules: {
