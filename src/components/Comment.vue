@@ -4,6 +4,7 @@
       :headers="headers"
       :items="comments"
       class="elevation-1"
+      @click:row="rowClick"
     >
       <template v-slot:top>
         <v-toolbar
@@ -95,19 +96,25 @@
         </v-toolbar>
       </template>
       <template v-slot:item.actions="{ item }">
+        <div>
         <v-icon
           small
           class="mr-2"
           @click="editItem(item)"
+          v-if="item.user===loginUser"
         >
           mdi-pencil
         </v-icon>
         <v-icon
           small
           @click="deleteItem(item)"
+          v-if="item.user===loginUser"
         >
           mdi-delete
         </v-icon>
+
+        </div>
+
       </template>
       <!-- <template v-slot:no-data>
         <v-btn
@@ -172,7 +179,6 @@ export default {
     this.editedItem.user = this.loginUser
     this.defaultItem.user = this.loginUser
     this.getComments()
-    this.initialize()
   },
   methods: {
     setToken:function(){
@@ -181,6 +187,9 @@ export default {
         Authorization: `JWT ${token}`
       }
       return config
+    },
+    rowClick: function(value) {
+      console.log(value.user)
     },
     getComments: function () {
       axios({
@@ -212,6 +221,7 @@ export default {
 
     deleteItemConfirm () {
       this.comments.splice(this.editedIndex, 1)
+      this.saveComment()
       this.closeDelete()
     },
 
@@ -229,6 +239,8 @@ export default {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
       })
+      
+
     },
 
     createComment: function () {
@@ -243,26 +255,29 @@ export default {
       })
     },
 
-    // saveComment: function () {
-    //   axios({
-    //     method: 'post',
-    //     url: `http://127.0.0.1:8000/reviews/detail/${this.reviewId}/updatecomment/`,
-    //     data: this.comments,
-    //     headers: this.setToken()
-    //   })
-    // },
+    saveComment: function () {
+      
+      axios({
+        method: 'delete',
+        url: `http://127.0.0.1:8000/reviews/detail/${this.reviewId}/updatecomment/`,
+        data: this.comments,
+        headers: this.setToken()
+      })
+    },
 
     save () {
       // editedIndex가 -1인 경우는 새로 댓글을 생성하는 경우
       // editedIndex가 0이상인 경우는 댓글을 수정하는 경우이다.
       if (this.editedIndex > -1) {
+        // 수정
         Object.assign(this.comments[this.editedIndex], this.editedItem)
-        // this.updateComment()
-        
-      } else {
-        this.comments.push(this.editedItem)
-        this.createComment()
         // this.saveComment()
+        this.saveComment()
+
+      } else {
+        // 생성
+        this.comments.push(this.editedItem)
+        this.saveComment()
       }
       this.close()
     },

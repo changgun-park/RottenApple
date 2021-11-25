@@ -50,12 +50,7 @@
         </v-col>
         <v-col cols="4">
           <v-card class="pa-2">
-            movie card comes here
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
+            <movie-card v-if="movieCard" :movieCard="movieCard"></movie-card>
           </v-card>
         </v-col>
         </v-row>
@@ -66,10 +61,12 @@
 <script>
 import axios from 'axios'
 import Comment from '@/components/Comment'
+import MovieCard from '@/components/MovieCard'
 
 export default {
   components: {
     Comment,
+    MovieCard
   },
   name: 'ReviewDetail',
   data: function () {
@@ -80,6 +77,7 @@ export default {
       rank: null,
       title: null,
       user: null,
+      movieCard: null,
     }
   },
   methods: {
@@ -99,7 +97,7 @@ export default {
       headers: this.setToken()
     })
       .then(res => {
-      console.log(res.data)
+      console.log(res.data.user)
       this.content = res.data.content
       this.created_at = res.data.created_at
       this.movie = res.data.movie
@@ -107,6 +105,17 @@ export default {
       this.title = res.data.title
       this.user = res.data.user
     })
+      .then(() => {
+        const moviecard = this.$store.state.movieCards.filter( obj => {
+      return obj.title === this.movie
+        
+      })
+      console.log(moviecard)
+      this.movieCard = moviecard[0]
+    })
+    
+     
+    
   },
 }
 </script>

@@ -39,7 +39,6 @@
         <v-btn :to="{ name: 'Home' }" text>Home</v-btn>
         <v-btn :to="{ name: 'ReviewIndex' }" text>Reviews</v-btn>
         <v-btn :to="{ name: 'Community' }" text>Community</v-btn>
-        <v-btn :to="{ name: 'Comment' }" text>Comment</v-btn>
         
         <v-spacer></v-spacer>
   

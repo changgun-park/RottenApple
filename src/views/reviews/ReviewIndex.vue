@@ -14,7 +14,6 @@
         ></v-text-field>
         <v-btn class="ml-5" :to="{ name: 'ReviewCreate' }">글쓰기</v-btn>
       </v-card-title>
-      <!-- @click:row="handleClick" 각 열 클릭시 handleClick 메서드 호출 -->
       <v-data-table
         :headers="headers"
         :items="reviews"
