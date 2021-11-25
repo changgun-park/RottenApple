@@ -143,7 +143,7 @@ export default {
         value: 'user',
       },
       { text: 'content', value: 'content' },
-      { text: 'Actions', value: 'actions', sortable: false },
+      { text: 'actions', value: 'actions', sortable: false },
     ],
     comments: [],
     editedIndex: -1,
