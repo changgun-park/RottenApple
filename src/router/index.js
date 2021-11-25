@@ -8,9 +8,9 @@ import Article from '@/views/community/Article'
 import ArticleCreate from '@/views/community/ArticleCreate'
 import ArticleUpdate from '@/views/community/ArticleUpdate'
 import Home from '@/views/Home'
-import ReviewsIndex from '@/views/reviews/ReviewIndex'
+import ReviewIndex from '@/views/reviews/ReviewIndex'
 import ReviewCreate from '@/views/reviews/ReviewCreate'
-
+import ReviewDetail from '@/views/reviews/ReviewDetail'
 
 Vue.use(VueRouter)
 
@@ -61,13 +61,18 @@ const routes = [
   {
     path: '/reviews/index',
     name: 'ReviewIndex',
-    component: ReviewsIndex
+    component: ReviewIndex
   },
   {
     path: '/reviews/create',
     name: 'ReviewCreate',
-    component: ReviewsCreate
-  }  
+    component: ReviewCreate
+  },
+  {
+    path: '/reviews/detail/:reviewId',
+    name: 'ReviewDetail',
+    component: ReviewDetail
+  },
 ]
 
 const router = new VueRouter({

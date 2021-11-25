@@ -19,7 +19,7 @@
         :headers="headers"
         :items="reviews"
         :search="search"
-        @click:row="handleClick"
+        @click:row="rowClick"
       ></v-data-table>
       
     </v-card>
@@ -41,35 +41,33 @@ import axios from 'axios'
           { text: '작성일', value: 'created_at' },
           { text: '조회수', value: 'views', sortable: true },
         ],
-        reviews: []
+        reviews: [],
+        title: null,
       }
     },
     methods: {
-      setToken:function (){
+      setToken:function () {
         const token = localStorage.getItem('jwt')
         const config = {
-        Authorization: `JWT ${token}`
+          Authorization: `JWT ${token}`
         }
       return config
       },
-      handleClick: function (value) {
-        // click한 row의 value를 출력해봄.
-        // 이를 기반으로 detail 페이지로 넘어갈 수 있음.
-        console.log(value)
+      rowClick: function (value) {
+        this.$router.push({name:'ReviewDetail',params:{reviewId:value.id}})
       }
     },
-      created: function () {
+    created: function () {
       axios({
         method: 'get',
         url: 'http://127.0.0.1:8000/reviews/list/',
         headers: this.setToken()
       })
       .then(res => {
-          console.log(res)
+          // console.log(res.data)
           this.reviews = res.data
       })
     }
-
   }
 </script>
 

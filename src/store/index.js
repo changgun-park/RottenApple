@@ -11,7 +11,7 @@ export default new Vuex.Store({
   ],
   state: {
     isLogin: false,
-    loginUser: null,
+    loginUser: 'Anonymous',
     movieCards:[],
   },
   mutations: {
@@ -21,11 +21,11 @@ export default new Vuex.Store({
     },
     LOGOUT: function(state) {
       state.isLogin = false,
-      state.loginUser = false
+      state.loginUser = 'Anonymous'
     },
     LOAD_MOVIE_CARDS:function(state,data){
       state.movieCards = data
-    }
+    },
   },
   actions: {
     login: function(context, username) {
@@ -47,7 +47,7 @@ export default new Vuex.Store({
         .catch(err=>{
           console.log(err)
         })
-    }
+    },
   },
   modules: {
   }
