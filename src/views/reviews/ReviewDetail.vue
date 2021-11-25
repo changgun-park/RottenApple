@@ -50,6 +50,7 @@
           <v-btn
           class="ma-2"
           dark
+          @click.native="deleteReview"
           >
             삭제하기
             <v-icon
@@ -118,7 +119,21 @@ export default {
         }
       return config
       },
-  },
+    deleteReview: function () {
+      axios({
+        method: 'delete',
+        url: `http://127.0.0.1:8000/reviews/update/${this.$route.params.reviewId}/`,
+        headers: this.setToken()
+      })
+        .then(res => {
+          console.log(res)
+          this.$router.push({ name: 'ReviewIndex' })
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  },  
   created: function () {
     // Review 정보 가져오기
     axios({
