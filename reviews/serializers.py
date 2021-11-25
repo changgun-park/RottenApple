@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Review
+from .models import Review, ReviewComment
 
 class ReviewListSerializer(serializers.ModelSerializer):
     # 영화 이름 출력
@@ -15,4 +15,13 @@ class ReviewListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = ('movie', 'title', 'user', 'created_at', 'views')
+        fields = '__all__'
+        # fields = ('movie', 'title', 'user', 'created_at', 'views')
+
+class ReviewCommentSerializer(serializers.ModelSerializer):
+    
+    user = serializers.StringRelatedField()
+
+    class Meta:
+        model = ReviewComment
+        fields = ('user', 'content')
