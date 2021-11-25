@@ -17,13 +17,11 @@
           class="mx-2"
           tile
           
-          color="primary"
+          color="warning"
           
           @click="moveCreate"
         >
-        <v-icon left>
-          mdi-pencil
-        </v-icon>
+        
         CREATE
         </v-btn>
       </v-card-title>
@@ -37,29 +35,13 @@
     </v-card>
   </v-container>
 
-
-
-
-  <!-- <div>
-   
-    <community-list-item
-      v-for="article in articles"
-      :key="article.id"
-      :article="article"
-    >
-    </community-list-item>
-    <br>
-    <button @click="moveCreate">게시글 생성하기</button>
-
-  </div> -->
 </template>
 
 <script>
 import axios from 'axios'
-// import CommunityListItem from './CommunityListItem.vue'
 
 export default {
-  // components: { CommunityListItem },
+ 
   name:'CommunityList',
   data:function(){
     return {
@@ -86,7 +68,6 @@ export default {
       return config
     },
     rowClick: function (value) {
-        // this.$router.push({name:'ReviewDetail',params:{reviewId:value.id}})
         this.$router.push({name:'Article',params:{articleNum:value.id}})
     },
 
@@ -100,12 +81,10 @@ export default {
     axios({
       method:'get',
       url:'http://127.0.0.1:8000/articles/',
-      // headers: this.setToken()
       
     })
       .then(res =>{
         this.articles = res.data
-        console.log(res.data)
       })
       .catch(err =>{
         console.log(err)

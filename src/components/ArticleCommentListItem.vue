@@ -1,28 +1,27 @@
 <template>
   <div>
     <v-card class="pa-5">
-      <div class="d-flex">
 
+      <div class="d-flex">
         <v-avatar
           color="teal"
           size="36"
         >
           <span class="white--text text-h5">{{avatar}}</span>
         </v-avatar>
-
         <p class="my-auto mx-2">{{ comment.user.username }}님의 댓글</p>
       </div>
+
       <div class="ma-5">
         <p>{{ comment.content }}</p>
-
       </div>
     
       <v-expand-transition>
         <v-btn
           class="mx-2"
-          tile
+          
           small
-          color="success"
+          color="warning"
           v-if="!this.edit && comment.user.username === loginUser"
           @click="editComment"
         >
@@ -34,12 +33,11 @@
       </v-expand-transition>
       
       <v-btn
-        tile
+        
         small
-        color="red"
+        color="dark"
         dark
         v-if="comment.user.username === loginUser"
-        
          @click="deleteBtn"
       >
       <v-icon left dark>
@@ -47,12 +45,7 @@
       </v-icon>
       Delete
       </v-btn>
-      <!-- <button @click="deleteBtn">댓글 삭제하기</button> -->
-
     </v-card>
-      
-   
-
 
       <v-dialog v-model="dialogDelete" max-width="500px">
         <v-card>
@@ -65,8 +58,6 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-
-      <!-- <button v-if="!this.edit" @click="editComment">댓글 수정하기</button> -->
   
       <v-expand-transition>
         <v-form v-if="this.edit" v-on:submit.prevent="" class="pa-3">
@@ -75,17 +66,14 @@
             outlined
             v-model="content"
           ></v-text-field>
-
-          <v-btn
-            tile
-            small
-            color="primary"
-            dark
-            
-            @click="updateComment"
-          >SAVE
-          </v-btn>
-          <!-- <button @click="updateComment">댓글 생성하기</button> -->
+            <v-btn
+              :disabled="!formIsValid"
+              
+              small
+              color="warning"
+              @click="updateComment"
+            >SAVE
+            </v-btn>
         </v-form>
       </v-expand-transition>
       
@@ -131,8 +119,8 @@ export default {
         url:`http://127.0.0.1:8000/article/comment/${this.comment.id}/`,
         headers:this.setToken(),
       })
-        .then(res=>{
-          console.log(res)
+        .then(()=>{
+          
           this.$emit('delete-comment')
         })
         .catch(err=>{
@@ -154,8 +142,7 @@ export default {
         data:updateItem,
         headers:this.setToken(),
       })
-        .then(res=>{
-          console.log(res)
+        .then(()=>{
           this.$emit('update-comment')
           this.edit = false
           this.expand = false
@@ -176,7 +163,12 @@ export default {
     this.avatar = this.comment.user.username.slice(0, 1)
   },
   computed:{
-    ...mapState(['loginUser'])
+    ...mapState(['loginUser']),
+    formIsValid () {
+      return (
+        this.content
+      )
+    },
   },
 
 }

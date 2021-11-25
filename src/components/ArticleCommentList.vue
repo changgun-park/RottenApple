@@ -1,8 +1,8 @@
 <template>
   <div>
+
     <v-container>
       <v-card>
-
         <article-comment-list-item
         v-for="comment in comments"
         :key="comment.id"
@@ -10,17 +10,14 @@
         @delete-comment="deleteComment"
         @update-comment="updateComment"
         ></article-comment-list-item>
-
       </v-card>
 
       <v-card class="mt-5">
-
         <article-comment-create
         :articleId="articleNum"
         @create-comment="updateList"
         ></article-comment-create>
       </v-card>
-
       </v-container>
   </div>
 </template>
@@ -57,7 +54,6 @@ export default {
         headers:this.setToken()
       })
         .then(res=>{
-          console.log(res.data.communitycomment_set)
           if (res.data.communitycomment_set){
             this.comments = res.data.communitycomment_set
           } 

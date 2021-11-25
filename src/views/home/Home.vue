@@ -5,13 +5,10 @@
       <v-sheet 
           class="mt-5 mx-auto"
           max-width="100%"
-          outline
-          
+          outline     
       >
         <v-slide-group  show-arrows center-active>
           <movie-card v-for="movieCard in movieCards" :key="movieCard.id" :movieCard="movieCard">
-
-              
           </movie-card>
         </v-slide-group>
       </v-sheet>
@@ -24,45 +21,29 @@
       <v-sheet 
           class="mt-5 mx-auto"
           max-width="100%"
-          outline
-          
+          outline    
       >
         <v-slide-group  show-arrows center-active>
-          <movie-card v-for="averageCard in averageCards" :key="averageCard.id" :movieCard="averageCard">
-
-              
+          <movie-card v-for="averageCard in averageCards" :key="averageCard.id" :movieCard="averageCard">  
           </movie-card>
         </v-slide-group>
       </v-sheet>
     </v-container>
 
-    
     <h1 class="text-center">{{ loginUser }}님이 좋아할 만한 영화</h1>
     <v-container fluid>
       <v-sheet 
           class="mt-5 mx-auto"
           max-width="100%"
           outline
-          
       >
         <v-slide-group  show-arrows center-active>
-          <movie-card v-for="genreCard in genreCards" :key="genreCard.id" :movieCard="genreCard">
-
-              
+          <movie-card v-for="genreCard in genreCards" :key="genreCard.id" :movieCard="genreCard">          
           </movie-card>
         </v-slide-group>
       </v-sheet>
-    </v-container>
-    
+    </v-container>   
   </div>
-
-  <!-- <div>
-    <movie-card
-      v-for="movieCard in movieCards"
-      :key="movieCard.id"
-      :movieCard="movieCard"
-    ></movie-card>
-  </div> -->
 </template>
 
 <script>

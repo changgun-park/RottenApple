@@ -1,7 +1,6 @@
 <template>
   <div>
 
-
     <div v-if="movieProviderFlatrate">
       <h1>스트리밍</h1>
       <div class="d-flex pb-1">
@@ -17,8 +16,6 @@
         </v-card>
       </div>
     </div>
-
-
 
     <div v-if="movieProviderRent">
       <h1>대여</h1>
@@ -41,7 +38,6 @@
     <div v-if="movieProviderBuy">
       <h1>구매</h1>
       <div class="d-flex pb-1">
-
         <v-card 
           v-for="(movieBuy,index) in movieProviderBuy"
           :key="index"
@@ -57,8 +53,6 @@
     <div v-if="!movieProviderBuy && !movieProviderRent && !movieProviderFlatrate">
       <h1 class="text-center pa-10"> 한국에서 서비스 하지 않습니다.</h1>
     </div>
-
-
 
   </div>
 </template>

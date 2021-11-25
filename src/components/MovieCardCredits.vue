@@ -1,30 +1,23 @@
 <template>
   <div>
     <!-- 슬라이더 만들기 -->
-      <!-- <v-app id="inspire"> -->
         <v-sheet
-          class="mx-auto"
-          
+          class="mx-auto" 
           max-width="800"
           outline
         >
           <v-slide-group
-            
             class="pa-4"
-            
             show-arrows
           >
             <v-slide-item
               v-for="actor in actors"
               :key="actor.id"
-              
             >
               <v-card
-                
                 class="ma-4"
                 height="220"
                 width="100"
-                
               >
                 <p v-if="actor.profile_path === null"> 사진 없음 </p>
                 <v-img v-else  :src="imgUrl + actor.profile_path"></v-img>
@@ -35,10 +28,6 @@
             </v-slide-item>
           </v-slide-group>
         </v-sheet>
-      <!-- </v-app> -->
-
-
-
   </div>
 </template>
 
