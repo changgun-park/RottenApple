@@ -5,9 +5,9 @@
       <v-row>
         <v-col cols="9">
           
-            <h2>{{ title }}</h2>
+            <h2 class="d-inline">{{ title }}</h2>
               <v-rating
-              :value="4.5"
+              :value="this.rank"
               class="d-inline"
               color="amber"
               dense
@@ -28,8 +28,10 @@
                 mdi-checkbox-marked-circle
               </v-icon>
             </v-btn>
-            
-            <span id="username" class="font-weight-medium">{{ user }} | {{ created_at }}</span> 
+            <v-list-item class="d-inline" :to="{ name: 'Profile', params: { username: this.user }}">
+                <v-list-item-title>{{ this.user }} | {{ created_at }}</v-list-item-title>
+            </v-list-item>
+             
         </v-col>
         <v-col v-if="user===loginUser" align-self="end" cols="3">
           <v-btn
@@ -38,7 +40,7 @@
           dark
           :to="{ name: 'ReviewUpdate', params: { reviewId: this.$route.params.reviewId } }"
           >
-            수정하기
+            EDIT
             <v-icon
             dark
             right
@@ -52,7 +54,7 @@
           dark
           @click.native="deleteReview"
           >
-            삭제하기
+            DELETE
             <v-icon
             dark
             right

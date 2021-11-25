@@ -23,13 +23,13 @@
           >
             <template v-slot:activator="{ on, attrs }">
               <v-btn
-                color="primary"
+                color="yellow darken-4"
                 dark
                 class="mb-2"
                 v-bind="attrs"
                 v-on="on"
               >
-                New Item
+                CREATE
               </v-btn>
             </template>
             <v-card>

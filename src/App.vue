@@ -1,6 +1,6 @@
 <template>
-  <v-app id="inspire">
-    <v-navigation-drawer
+  <v-app>
+    <!-- <v-navigation-drawer
       v-model="drawer"
       app
       clipped
@@ -22,17 +22,23 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
 
     <v-app-bar
         app
         clipped-left
-        color="indigo"
+        color="yellow darken-4"
         dark
       >
-        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+        <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon> -->
   
-        <v-toolbar-title>MovieGram</v-toolbar-title>
+        <v-toolbar-title>ROTTEN APPLE</v-toolbar-title>
+            <v-icon
+            dark
+            right
+            >
+            mdi-apple
+            </v-icon>
   
         <v-spacer></v-spacer>
         

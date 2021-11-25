@@ -70,7 +70,7 @@
               thumb-label
             ></v-slider>
           </v-col>
-          <v-col cols="12">
+          <!-- <v-col cols="12">
             <v-checkbox
               v-model="form.terms"
               color="green"
@@ -90,7 +90,7 @@
                 </div>
               </template>
             </v-checkbox>
-          </v-col>
+          </v-col> -->
         </v-row>
       </v-container>
       <v-card-actions>

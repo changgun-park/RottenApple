@@ -12,7 +12,7 @@
           single-line
           hide-details
         ></v-text-field>
-        <v-btn class="ml-5" :to="{ name: 'ReviewCreate' }">글쓰기</v-btn>
+        <v-btn color="yellow darken-4 white--text" class="ml-5" :to="{ name: 'ReviewCreate' }">CREATE</v-btn>
       </v-card-title>
       <v-data-table
         :headers="headers"
