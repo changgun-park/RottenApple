@@ -6,7 +6,7 @@ from rest_framework.fields import CurrentUserDefault
 
 class ArticleListSerializer(serializers.ModelSerializer):
     # user = CurrentUserDefault()
-    created_at = serializers.DateTimeField(format="%Y-%m-%d")
+    created_at = serializers.DateTimeField(format="%Y-%m-%d",read_only=True)
     user = serializers.StringRelatedField()
     # username = serializers.SerializerMethodField()
     class Meta:
