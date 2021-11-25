@@ -23,6 +23,7 @@ def reviews_list(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([AllowAny])
 def review_update_delete(request, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
 
@@ -32,9 +33,17 @@ def review_update_delete(request, review_pk):
 
     elif request.method == 'PUT':
         serializer = ReviewCreateSerializer(review, data=request.data)
-        if serializer.is_valid(raise_exception=True):
+        if serializer.is_valid(raise_exception=True):   
             serializer.save()
             return Response(serializer.data)
+
+    else:
+        review.delete()
+        data = {
+            'delete':f'데이터 {review_pk}번이 삭제되었습니다.'
+        }
+    return Response(data, status=status.HTTP_204_NO_CONTENT)
+
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
