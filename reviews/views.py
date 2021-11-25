@@ -1,7 +1,7 @@
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 from rest_framework.response import Response
 from .models import Review, ReviewComment
-from .serializers import ReviewCommentSerializer, ReviewListSerializer
+from .serializers import ReviewCommentSerializer, ReviewListSerializer, ReviewCreateSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework import status
@@ -10,12 +10,21 @@ from django.contrib.auth import get_user_model
 
 
 # Review 목록 출력
-@api_view(['GET'])
-@permission_classes([AllowAny])
+@api_view(['GET', 'POST'])
 def reviews_list(request):
-    reviews = get_list_or_404(Review)
-    serializer = ReviewListSerializer(reviews, many=True)
-    return Response(serializer.data)
+    if request.method == 'GET':
+        reviews = get_list_or_404(Review)
+        serializer = ReviewListSerializer(reviews, many=True)
+        return Response(serializer.data)
+    else:
+        serializer = ReviewCreateSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(user=request.user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['POST'])
+def review_create(request):
+    pass
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
