@@ -5,6 +5,7 @@ from .serializers import ReviewCommentSerializer, ReviewListSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework import status
+from django.contrib.auth import get_user_model
 # Create your views here.
 
 
@@ -30,22 +31,36 @@ def review_comments(request, review_pk):
     serializer = ReviewCommentSerializer(comments, many=True)
     return Response(serializer.data)
 
-@api_view(['POST'])
-def review_comment_create(request, review_pk):
-    review = get_object_or_404(Review, pk=review_pk)
-    serializer = ReviewCommentSerializer(data=request.data)
-    if serializer.is_valid(raise_exception=True):
-        serializer.save(review=review,user=request.user)
-        return Response(serializer.data,status=status.HTTP_201_CREATED)
-
 # @api_view(['POST'])
-# def review_comment_update(request, review_pk):
+# def review_comment_create(request, review_pk):
 #     review = get_object_or_404(Review, pk=review_pk)
-#     for comment in request.data:
-#         serializer = ReviewCommentSerializer(data=comment)
-#         if serializer.is_valid(raise_exception=True):
-#             serializer.save(review=review)
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#     serializer = ReviewCommentSerializer(data=request.data)
+#     if serializer.is_valid(raise_exception=True):
+#         serializer.save(review=review, user=request.user)
+#         return Response(serializer.data,status=status.HTTP_201_CREATED)
+
+
+@api_view(['GET','DELETE','PUT', 'POST'])
+def review_comment_update(request, review_pk):
+    # comment = get_object_or_404(ReviewComment, content=comment_content)
+    
+    # if request.method == 'PUT':
+    #     serializer = ReviewComment(comment, data=request.data)
+    #     if serializer.is_valid(raise_exception=True):
+    #         serializer.save()
+    #         return Response(serializer.data)
+
+    comments = ReviewComment.objects.all()
+    comments.delete()
+
+    for comment in request.data:
+        user = get_object_or_404(get_user_model(), username=comment['user'])
+        review = get_object_or_404(Review, pk=review_pk)
+        new_comment = ReviewComment(user=user, review=review, content=comment['content'])
+        new_comment.save()
+
+    return Response(status=status.HTTP_204_NO_CONTENT)
+        
 
 
 
