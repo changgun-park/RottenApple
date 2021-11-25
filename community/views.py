@@ -47,6 +47,7 @@ def article_detail(request,article_pk):
         if serializer.is_valid(raise_exception=True):
             serializer.save(user=request.user)
             return Response(serializer.data)
+        return Response('왜 안돼지')
 
 # @api_view(['GET'])
 # @permission_classes([AllowAny])
