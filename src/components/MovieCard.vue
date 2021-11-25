@@ -1,30 +1,22 @@
 <template>
   <div>
- 
     <v-row justify="center">
       <v-col cols="auto">
         <v-dialog
           transition="dialog-bottom-transition"
-          width="800"
-          
+          width="800"       
           v-model="dialog"
         >
-
-
           <template v-slot:activator="{ on, attrs }">
           <v-card max-width="300" class="ma-4"
           v-bind="attrs"
           v-on="on"
-          @click="openCard"
-          
-          >
-          
+          @click="openCard"         
+          >   
           <v-img height="480px" width="300px" :src="imgUrl"></v-img>
-          
-          
+
           </v-card>
           </template>
-
 
           <template v-if="dialog">
             <v-card>
@@ -32,38 +24,30 @@
                 color="primary"
                 dark
               >
-                
                 <v-card-actions class="justify-end">
                   <v-btn
                     text
                     @click="dialog = false"
                   ><v-icon>mdi-close</v-icon></v-btn>
                 </v-card-actions>
-                
               Movie Detail
               </v-toolbar>
               <v-card class="d-flex justify-center" >
                 <iframe allow="autoplay; encrypted-media" id="ytplayer" type="text/html" width="800" height="360"
                   :src="videoUrl"
                   frameborder="0"></iframe>
-
               </v-card>
               
-              <v-container>
-                
+              <v-container> 
               <v-row >
                 <v-col cols="4">
-
                 <v-img height="200px" contain :src="imgUrl"></v-img>
                 </v-col>
-                <v-col cols="8">
 
-                
-                  <div class="text-h2 pa-12">{{ movieCard.title }}</div>
-                
+                <v-col cols="8">  
+                  <div class="text-h2 pa-12">{{ movieCard.title }}</div>       
                 </v-col>
               </v-row>
-                
               </v-container>
               
               <v-card-text>
@@ -96,16 +80,18 @@
               >
               </movie-card-over-view>
 
+              <movie-card-review
+                v-show="selection === 2"
+                :movieId="movieCard.id"
+              >
+              </movie-card-review>
+
               <movie-card-providers
                 v-show="selection === 3"
                 :movieId="movieCard.id"
               >
               </movie-card-providers>
               
-
-
-
-
             </v-card>
               
           </template>
@@ -123,6 +109,7 @@ import axios from 'axios'
 import MovieCardCredits from '@/components/MovieCardCredits'
 import MovieCardOverView from '@/components/MovieCardOverView'
 import MovieCardProviders from '@/components/MovieCardProviders'
+import MovieCardReview from '@/components/MovieCardReview'
 
 const API_KEY = process.env.VUE_APP_YOUTUBE_API_KEY
 const API_URL = 'https://www.googleapis.com/youtube/v3/search'
@@ -133,6 +120,8 @@ export default {
     MovieCardCredits,
     MovieCardOverView,
     MovieCardProviders,
+    MovieCardReview,
+    
   },
   props:{
     movieCard:Object

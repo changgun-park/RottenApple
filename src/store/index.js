@@ -32,7 +32,6 @@ export default new Vuex.Store({
       state.movieCards = data
     },
     LOAD_GENRE_CARDS:function(state,data){
-
       state.genreCards = state.movieCards.filter(card =>{
         for (const dd of data) {
           if (card.genres.includes(dd)){
@@ -45,7 +44,6 @@ export default new Vuex.Store({
 
     },
     LOAD_VOTE_AVERAGE_CARDS:function(state) {
-      
       state.averageCards = state.movieCards.sort(function(a,b) {
         return b.vote_average - a.vote_average
       })
@@ -59,7 +57,6 @@ export default new Vuex.Store({
  
 
     login: function(context, username) {
-      
       context.commit('LOGIN', username)
     },
     logout: function(context) {
@@ -86,8 +83,6 @@ export default new Vuex.Store({
         
       })
       .then(res=>{
-        
-        
         commit('LOAD_GENRE_CARDS',res.data.genres)
       })
       .catch(err=>{

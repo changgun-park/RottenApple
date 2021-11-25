@@ -2,16 +2,8 @@
   <div>
     <v-row>
       <v-col cols="8">
-
-
-        
-        <!-- <p>id : {{id}}</p> -->
-        <!-- <p> content : {{content}}</p> -->
         <h2>{{title}}</h2>
         <span class="font-weight-medium">{{ user }} | {{ created_at }}</span>
-
-
-        <!-- <p>like count : {{ like_users }}</p> -->
         <v-btn
           class="mx-2"
           fab
@@ -23,15 +15,13 @@
           <v-icon dark>
             mdi-heart
           </v-icon>{{ like_users }}
-          
         </v-btn>
-        <!-- <button @click="getlike">like</button> -->
 
         <v-btn
           class="mx-2"
-          tile
+          
           small
-          color="success"
+          color="warning"
           v-if="user === loginUser"
           @click="moveUpdate"
         >
@@ -40,13 +30,11 @@
         </v-icon>
         Edit
         </v-btn>
-        <!-- <button @click="moveUpdate">수정하기</button> -->
-
 
         <v-btn
-          tile
+          
           small
-          color="red"
+          color="dark"
           dark
           v-if="user === loginUser"
           
@@ -69,7 +57,6 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-        <!-- <button @click="deleteData(id)">삭제하기</button> -->
       </v-col>
     </v-row>
 
@@ -79,7 +66,6 @@
           <v-card-title>
           {{ content }}
           </v-card-title>
-          
         </v-card>
       </v-col>
     </v-row>
@@ -93,8 +79,7 @@ import axios from 'axios'
 export default {
   name:'ArticleDetail',
   data:function(){
-    return{
-      
+    return{    
       category:null,
       id:null,
       content:null,
@@ -123,8 +108,7 @@ export default {
         url:`http://127.0.0.1:8000/articles/${id}/`,
         headers:this.setToken()
       })
-        .then(res=>{
-          console.log(res)
+        .then(()=>{
           this.$router.push({name:'Community'})
         })
         .catch(err=>{
@@ -153,9 +137,6 @@ export default {
 
     })
       .then(res=>{
-        console.log('므익')
-        console.log(res)
-        
         this.category = res.data.category
         this.content = res.data.content
         this.title = res.data.title
@@ -180,8 +161,7 @@ export default {
   computed:{
     ...mapState(['loginUser'])
   },
-  
-  
+
   created:function(){
     this.getData()
   }

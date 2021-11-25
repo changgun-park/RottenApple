@@ -7,15 +7,13 @@
         v-model="content"
       ></v-text-field>
       <v-btn
+        :disabled="!formIsValid"
         tile
         small
         color="primary"
-        dark
-        
         @click="createComment"
       >SAVE
       </v-btn>
-      <!-- <button @click="createComment">댓글 생성하기</button> -->
     </v-form>
   </div>
 </template>
@@ -52,8 +50,7 @@ export default {
         data:createItem,
         headers:this.setToken(),
       })
-        .then(res=>{
-          console.log(res)
+        .then(()=>{
           this.$emit('create-comment')
           this.content=null
         })
@@ -61,6 +58,14 @@ export default {
           console.log(err)
         })
     }
+  },
+  computed: {
+    formIsValid () {
+      return (
+        this.content
+        
+      )
+    },
   },
 }
 </script>
