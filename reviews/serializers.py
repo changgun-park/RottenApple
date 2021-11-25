@@ -24,4 +24,4 @@ class ReviewCommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ReviewComment
-        fields = ('user', 'content')
+        fields = '__all__'
