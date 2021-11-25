@@ -37,3 +37,9 @@ class UserDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ('username', 'genres', 'is_expert', 'followings', 'like_movies', 'post_articles', 'followers')
+
+
+class UserGenreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ('genres',)
