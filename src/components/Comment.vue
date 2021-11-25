@@ -4,6 +4,7 @@
       :headers="headers"
       :items="comments"
       class="elevation-1"
+      @click:row="rowClick"
     >
       <template v-slot:top>
         <v-toolbar
@@ -95,19 +96,25 @@
         </v-toolbar>
       </template>
       <template v-slot:item.actions="{ item }">
+        <div>
         <v-icon
           small
           class="mr-2"
           @click="editItem(item)"
+          v-if="item.user===loginUser"
         >
           mdi-pencil
         </v-icon>
         <v-icon
           small
           @click="deleteItem(item)"
+          v-if="item.user===loginUser"
         >
           mdi-delete
         </v-icon>
+
+        </div>
+
       </template>
       <!-- <template v-slot:no-data>
         <v-btn
@@ -180,6 +187,9 @@ export default {
         Authorization: `JWT ${token}`
       }
       return config
+    },
+    rowClick: function(value) {
+      console.log(value.user)
     },
     getComments: function () {
       axios({

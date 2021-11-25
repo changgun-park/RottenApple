@@ -139,7 +139,7 @@ export default {
   },
   data:function(){
     return {
-      imgUrl: `https://image.tmdb.org/t/p/w300${this.movieCard.poster_path}`,
+      imgUrl : `https://image.tmdb.org/t/p/w300${this.movieCard.poster_path}`,
       selection: 0,
       dialog:false,
       videoUrl:null,
