@@ -8,6 +8,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   plugins: [
     createPersistedState(),
+    
   ],
   state: {
     isLogin: false,
@@ -18,6 +19,7 @@ export default new Vuex.Store({
     LOGIN: function(state, username) {
       state.isLogin = true
       state.loginUser = username
+      
     },
     LOGOUT: function(state) {
       state.isLogin = false,
@@ -28,7 +30,11 @@ export default new Vuex.Store({
     },
   },
   actions: {
+
+ 
+
     login: function(context, username) {
+      console.log(context)
       context.commit('LOGIN', username)
     },
     logout: function(context) {
@@ -48,6 +54,20 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
+    LoadgenreCards:function(context) {
+      axios({
+        method:'get',
+        url:`http://127.0.0.1:8000/accounts/genres/${this.state.loginUser}/`,
+        
+      })
+      .then(res=>{
+        console.log(context)
+        console.log(res)
+      })
+      .catch(err=>{
+        console.log(err)
+      })
+    }
   },
   modules: {
   }

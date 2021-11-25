@@ -7,7 +7,7 @@ import Community from '@/views/community/Community'
 import Article from '@/views/community/Article'
 import ArticleCreate from '@/views/community/ArticleCreate'
 import ArticleUpdate from '@/views/community/ArticleUpdate'
-import Home from '@/views/Home'
+import Home from '@/views/home/Home'
 import ReviewIndex from '@/views/reviews/ReviewIndex'
 import ReviewCreate from '@/views/reviews/ReviewCreate'
 import ReviewDetail from '@/views/reviews/ReviewDetail'
@@ -54,7 +54,7 @@ const routes = [
     
   },
   {
-    path:'/',
+    path:'/home',
     name:'Home',
     component:Home
   },
