@@ -1,6 +1,7 @@
 <template>
 <div>
-  <v-card flat> 
+  <v-container>
+    <v-card flat> 
     <v-form
       ref="form"
       v-on:submit.prevent=""
@@ -54,6 +55,8 @@
       </v-card-actions>
     </v-form>
   </v-card>
+  </v-container>
+  
 </div>
 </template>
 

@@ -21,7 +21,7 @@
           <template v-if="dialog">
             <v-card>
               <v-toolbar
-                color="primary"
+                color="warning"
                 dark
               >
                 <v-card-actions class="justify-end">

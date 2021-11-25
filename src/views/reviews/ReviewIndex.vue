@@ -36,7 +36,7 @@ import axios from 'axios'
         headers: [
           { text: '영화', value: 'movie', align: 'start'},
           { text: '제목', value: 'title'},
-          { text: 'ID', value: 'username' },
+          { text: '작성자', value: 'user' },
           { text: '작성일', value: 'created_at' },
           
         ],
@@ -63,7 +63,7 @@ import axios from 'axios'
         headers: this.setToken()
       })
       .then(res => {
-          // console.log(res.data)
+          console.log(res.data)
           this.reviews = res.data
       })
     }

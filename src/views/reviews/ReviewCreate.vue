@@ -1,5 +1,6 @@
 <template>
-  <v-card flat>
+  <v-container>
+    <v-card flat>
     <v-snackbar
       v-model="snackbar"
       absolute
@@ -164,6 +165,9 @@
       </v-card>
     </v-dialog>
   </v-card>
+
+  </v-container>
+  
 </template>
 
 <script>
@@ -196,8 +200,7 @@ export default {
       return (
         this.form.title &&
         this.form.content &&
-        this.form.movie &&
-        this.form.terms
+        this.form.movie
       )
     },
   },

@@ -7,7 +7,7 @@
           <!--  -->
         <v-card
           class="mx-auto"
-          color="#26c6da"
+          color="warning"
           dark
           max-width="500"
           
