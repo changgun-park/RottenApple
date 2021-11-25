@@ -1,12 +1,21 @@
 <template>
   <div>
-    <v-form v-on:submit.prevent="">
+    <v-form v-on:submit.prevent="" class="pa-3">
       <v-text-field
-        label="제목"
+        label="댓글 달기"
         outlined
         v-model="content"
       ></v-text-field>
-      <button @click="createComment">댓글 생성하기</button>
+      <v-btn
+        tile
+        small
+        color="primary"
+        dark
+        
+        @click="createComment"
+      >SAVE
+      </v-btn>
+      <!-- <button @click="createComment">댓글 생성하기</button> -->
     </v-form>
   </div>
 </template>

@@ -1,29 +1,103 @@
 <template>
   <div>
-  
-      <p>{{ comment.user.username }}님의 댓글</p>
-      <p>{{ comment.content }}</p>
+    <v-card class="pa-5">
+      <div class="d-flex">
 
+        <v-avatar
+          color="teal"
+          size="36"
+        >
+          <span class="white--text text-h5">{{avatar}}</span>
+        </v-avatar>
+
+        <p class="my-auto mx-2">{{ comment.user.username }}님의 댓글</p>
+      </div>
+      <div class="ma-5">
+        <p>{{ comment.content }}</p>
+
+      </div>
+    
+      <v-expand-transition>
+        <v-btn
+          class="mx-2"
+          tile
+          small
+          color="success"
+          v-if="!this.edit && comment.user.username === loginUser"
+          @click="editComment"
+        >
+        <v-icon left>
+          mdi-pencil
+        </v-icon>
+        Edit
+        </v-btn>
+      </v-expand-transition>
       
-      <button @click="deleteComment">댓글 삭제하기</button>
+      <v-btn
+        tile
+        small
+        color="red"
+        dark
+        v-if="comment.user.username === loginUser"
+        
+         @click="deleteBtn"
+      >
+      <v-icon left dark>
+        mdi-cancel
+      </v-icon>
+      Delete
+      </v-btn>
+      <!-- <button @click="deleteBtn">댓글 삭제하기</button> -->
+
+    </v-card>
+      
+   
 
 
-      <button v-if="!this.edit" @click="editComment">댓글 수정하기</button>
-      <v-form v-else v-on:submit.prevent="">
-        <v-text-field
-          label="제목"
-          outlined
-          v-model="content"
-        ></v-text-field>
-        <button @click="updateComment">댓글 생성하기</button>
-      </v-form>
-     
+      <v-dialog v-model="dialogDelete" max-width="500px">
+        <v-card>
+          <v-card-title class="text-h5">Are you sure you want to delete this item?</v-card-title>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
+            <v-btn color="blue darken-1" text @click="deleteComment">OK</v-btn>
+            <v-spacer></v-spacer>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+      <!-- <button v-if="!this.edit" @click="editComment">댓글 수정하기</button> -->
+  
+      <v-expand-transition>
+        <v-form v-if="this.edit" v-on:submit.prevent="" class="pa-3">
+          <v-text-field
+            label="제목"
+            outlined
+            v-model="content"
+          ></v-text-field>
+
+          <v-btn
+            tile
+            small
+            color="primary"
+            dark
+            
+            @click="updateComment"
+          >SAVE
+          </v-btn>
+          <!-- <button @click="updateComment">댓글 생성하기</button> -->
+        </v-form>
+      </v-expand-transition>
+      
+
+
 
     
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import axios from 'axios'
 export default {
   name:'ArticleCommentListItem',
@@ -37,6 +111,9 @@ export default {
     return {
       edit:false,
       content:null,
+      expand:false,
+      dialogDelete:false,
+      avatar:null,
     }
   },
   methods:{
@@ -64,6 +141,8 @@ export default {
     },
     editComment:function(){
       this.edit = true
+      this.expand = true
+      this.content = this.comment.content
     },
     updateComment:function(){
       const updateItem = {
@@ -79,13 +158,26 @@ export default {
           console.log(res)
           this.$emit('update-comment')
           this.edit = false
+          this.expand = false
         })
         .catch(err=>{
           console.log(err)
         })
 
+    },
+    closeDelete:function(){
+      this.dialogDelete = false
+    },
+    deleteBtn:function(){
+      this.dialogDelete = true
     }
-  }
+  },
+  created:function(){
+    this.avatar = this.comment.user.username.slice(0, 1)
+  },
+  computed:{
+    ...mapState(['loginUser'])
+  },
 
 }
 </script>

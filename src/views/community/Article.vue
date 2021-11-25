@@ -1,13 +1,29 @@
 <template>
   <div>
-    <h1>{{ $route.params.articleNum }}</h1>
-    <article-detail></article-detail>
-    <article-comment-list
-    :articleNum="$route.params.articleNum"
-    ></article-comment-list>
+    <v-container class="grey lighten-5 mt-10">
+      
+
+          
+      <article-detail></article-detail>
+        
+
+      
+
+
+
+      <v-row>
+        <v-col cols="12">
+
+
+        <article-comment-list
+        class="pt-2"
+        :articleNum="$route.params.articleNum"
+        ></article-comment-list>
+        </v-col>
+      </v-row>
 
     
-    
+    </v-container>
   </div>
 </template>
 
