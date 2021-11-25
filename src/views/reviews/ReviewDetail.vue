@@ -3,7 +3,7 @@
     <v-container class="grey lighten-5 mt-10">
       <!-- Stack the columns on mobile by making one full-width and the other half-width -->
       <v-row>
-        <v-col cols="8">
+        <v-col cols="9">
           
             <h2>{{ title }}</h2>
               <v-rating
@@ -30,6 +30,35 @@
             </v-btn>
             
             <span id="username" class="font-weight-medium">{{ user }} | {{ created_at }}</span> 
+        </v-col>
+        <v-col v-if="user===loginUser" align-self="end" cols="3">
+          <v-btn
+          class="ma-2"
+          color="orange darken-2"
+          dark
+          :to="{ name: 'ReviewUpdate', params: { reviewId: this.$route.params.reviewId } }"
+          >
+            수정하기
+            <v-icon
+            dark
+            right
+            >
+            mdi-pencil
+            </v-icon>
+          </v-btn>
+  
+          <v-btn
+          class="ma-2"
+          dark
+          >
+            삭제하기
+            <v-icon
+            dark
+            right
+            >
+            mdi-cancel
+            </v-icon>
+          </v-btn>
         </v-col>
         
       </v-row>
@@ -78,6 +107,7 @@ export default {
       title: null,
       user: null,
       movieCard: null,
+      loginUser: this.$store.state.loginUser
     }
   },
   methods: {

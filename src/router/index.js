@@ -11,6 +11,7 @@ import Home from '@/views/home/Home'
 import ReviewIndex from '@/views/reviews/ReviewIndex'
 import ReviewCreate from '@/views/reviews/ReviewCreate'
 import ReviewDetail from '@/views/reviews/ReviewDetail'
+import ReviewUpdate from '@/views/reviews/ReviewUpdate'
 
 Vue.use(VueRouter)
 
@@ -73,6 +74,11 @@ const routes = [
     name: 'ReviewDetail',
     component: ReviewDetail
   },
+  {
+    path: '/reviews/update/:reviewId',
+    name: 'ReviewUpdate',
+    component: ReviewUpdate
+  }
 ]
 
 const router = new VueRouter({

@@ -92,7 +92,7 @@ export default new Vuex.Store({
     },
     LoadVoteAverageCards:function({commit}) {
       commit('LOAD_VOTE_AVERAGE_CARDS')
-    }
+    },
   },
   modules: {
   }
