@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Signup from '@/views/accounts/Signup'
-import Login from '@/views/accounts/Login'
 import Profile from '@/views/accounts/Profile'
 import Community from '@/views/community/Community'
 import Article from '@/views/community/Article'
@@ -16,16 +14,6 @@ import ReviewUpdate from '@/views/reviews/ReviewUpdate'
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/accounts/signup',
-    name: 'Signup',
-    component: Signup,
-  },
-  {
-    path: '/accounts/login',
-    name: 'Login',
-    component: Login,
-  },
   {
     path: '/accounts/profile/:username/',
     name: 'Profile',

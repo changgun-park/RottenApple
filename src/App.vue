@@ -67,11 +67,14 @@
               </v-list-item>
             </span>
             <span v-else>
-              <v-list-item :to="{ name: 'Login' }">
+              <!-- <v-list-item :to="{ name: 'Login' }">
                 <v-list-item-title>Login</v-list-item-title>
+              </v-list-item> -->
+              <v-list-item>
+                <login></login>
               </v-list-item>
-              <v-list-item :to="{ name: 'Signup' }">
-                <v-list-item-title>Signup</v-list-item-title>
+              <v-list-item>
+                <sign-up></sign-up>
               </v-list-item >
             </span>
             
@@ -92,10 +95,13 @@
 
 <script>
 import { mapState } from 'vuex'
+import Login from '@/components/Login'
+import SignUp from '@/components/SignUp'
 
   export default {
     components: { 
-       
+      Login,
+      SignUp
     },
     props: {
       source: String
