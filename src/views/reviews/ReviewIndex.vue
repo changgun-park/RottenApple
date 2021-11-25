@@ -36,9 +36,9 @@ import axios from 'axios'
         headers: [
           { text: '영화', value: 'movie', align: 'start'},
           { text: '제목', value: 'title'},
-          { text: 'ID', value: 'user' },
+          { text: 'ID', value: 'username' },
           { text: '작성일', value: 'created_at' },
-          { text: '조회수', value: 'views', sortable: true },
+          
         ],
         reviews: [],
         title: null,

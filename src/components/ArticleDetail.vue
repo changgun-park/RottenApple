@@ -1,17 +1,94 @@
 <template>
   <div>
-    <p>id : {{id}}</p>
-    <h1>{{title}}</h1>
-    <p> content : {{content}}</p>
-    <p>like count : {{ like_users }}</p>
-    <button @click="getlike">like</button>
-    <button @click="moveUpdate">수정하기</button>
-    <button @click="deleteData(id)">삭제하기</button>
-    
+    <v-row>
+      <v-col cols="8">
+
+
+        
+        <!-- <p>id : {{id}}</p> -->
+        <!-- <p> content : {{content}}</p> -->
+        <h2>{{title}}</h2>
+        <span class="font-weight-medium">{{ user }} | {{ created_at }}</span>
+
+
+        <!-- <p>like count : {{ like_users }}</p> -->
+        <v-btn
+          class="mx-2"
+          fab
+          dark
+          small
+          color="pink"
+          @click="getlike"
+        >
+          <v-icon dark>
+            mdi-heart
+          </v-icon>{{ like_users }}
+          
+        </v-btn>
+        <!-- <button @click="getlike">like</button> -->
+
+        <v-btn
+          class="mx-2"
+          tile
+          small
+          color="success"
+          v-if="user === loginUser"
+          @click="moveUpdate"
+        >
+        <v-icon left>
+          mdi-pencil
+        </v-icon>
+        Edit
+        </v-btn>
+        <!-- <button @click="moveUpdate">수정하기</button> -->
+
+
+        <v-btn
+          tile
+          small
+          color="red"
+          dark
+          v-if="user === loginUser"
+          
+          @click="deleteBtn"
+        >
+        <v-icon left dark>
+          mdi-cancel
+        </v-icon>
+          Delete
+        </v-btn>
+
+        <v-dialog v-model="dialogDelete" max-width="500px">
+        <v-card>
+          <v-card-title class="text-h5">Are you sure you want to delete this item?</v-card-title>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
+            <v-btn color="blue darken-1" text @click="deleteData(id)">OK</v-btn>
+            <v-spacer></v-spacer>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+        <!-- <button @click="deleteData(id)">삭제하기</button> -->
+      </v-col>
+    </v-row>
+
+    <v-row align="start" justify="center">
+      <v-col cols="12">
+        <v-card class="pa-2">
+          <v-card-title>
+          {{ content }}
+          </v-card-title>
+          
+        </v-card>
+      </v-col>
+    </v-row>
+
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import axios from 'axios'
 export default {
   name:'ArticleDetail',
@@ -26,6 +103,7 @@ export default {
       rate:null,
       title:null,
       user:null,
+      dialogDelete:false,
     }
   },
   methods:{
@@ -75,6 +153,8 @@ export default {
 
     })
       .then(res=>{
+        console.log('므익')
+        console.log(res)
         
         this.category = res.data.category
         this.content = res.data.content
@@ -88,8 +168,19 @@ export default {
       .catch(err=>{
         console.log(err)
       })
-    }
+    },
+    closeDelete:function(){
+      this.dialogDelete = false
+    },
+    deleteBtn:function(){
+      this.dialogDelete = true
+    },
   },
+
+  computed:{
+    ...mapState(['loginUser'])
+  },
+  
   
   created:function(){
     this.getData()

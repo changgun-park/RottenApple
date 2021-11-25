@@ -1,17 +1,27 @@
 <template>
   <div>
-    <article-comment-list-item
-    v-for="comment in comments"
-    :key="comment.id"
-    :comment="comment"
-    @delete-comment="deleteComment"
-    @update-comment="updateComment"
-    ></article-comment-list-item>
-    <article-comment-create
-    :articleId="articleNum"
-    @create-comment="updateList"
-    ></article-comment-create>
+    <v-container>
+      <v-card>
 
+        <article-comment-list-item
+        v-for="comment in comments"
+        :key="comment.id"
+        :comment="comment"
+        @delete-comment="deleteComment"
+        @update-comment="updateComment"
+        ></article-comment-list-item>
+
+      </v-card>
+
+      <v-card class="mt-5">
+
+        <article-comment-create
+        :articleId="articleNum"
+        @create-comment="updateList"
+        ></article-comment-create>
+      </v-card>
+
+      </v-container>
   </div>
 </template>
 

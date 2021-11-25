@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>게시판 등록</h1>
+    <h1>게시글 등록</h1>
     <v-form v-on:submit.prevent="">
       <v-text-field
         label="제목"
