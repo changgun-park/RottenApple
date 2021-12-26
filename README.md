@@ -1,6 +1,6 @@
 # Welcome to ROTTEN APPLE
 
-## 팀원 역할
+## 팀원 역할()
 
 ![image-20211126081951860](README.assets/image-20211126081951860.png)
 
